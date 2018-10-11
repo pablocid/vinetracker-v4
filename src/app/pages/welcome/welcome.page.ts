@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, AlertController } from '@ionic/angular';
-import { UserService } from '../../store/user';
+import { UserService, UserQuery } from '../../store/user';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'welcome',
@@ -13,9 +14,14 @@ export class WelcomePage implements OnInit {
     constructor(
         public loadingController: LoadingController,
         public alertController: AlertController,
-        public userS: UserService
+        public userS: UserService,
+        public userQ: UserQuery,
+        public router: Router
     ) {
     }
+
+    public isLogged$ = this.userQ.isLogged();
+    public userEmail$ = this.userQ.userEmail();
 
     async presentLoading() {
         if (this.loader) { this.loadingController.dismiss(); }
@@ -54,9 +60,10 @@ export class WelcomePage implements OnInit {
 
         try {
             await this.userS.auth(data);
-            this.loadingController.dismiss();
+            await this.loadingController.dismiss();
+            this.router.navigate(['home']);
         } catch (e) {
-            this.loadingController.dismiss();
+            await this.loadingController.dismiss();
             this.loginError(e);
         }
 
@@ -72,6 +79,10 @@ export class WelcomePage implements OnInit {
         });
 
         await alert.present();
+    }
+
+    enter() {
+        this.router.navigate(['home']);
     }
 }
 

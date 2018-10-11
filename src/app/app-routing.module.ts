@@ -18,6 +18,14 @@ const routes: Routes = [
   {
     path: 'list',
     loadChildren: './pages/list/list.module#ListPageModule'
+  },
+  {
+    path: 'selection',
+    loadChildren: './pages/selection/selection.module#SelectionPageModule'
+  },
+  {
+    path: 'row',
+    loadChildren: './pages/row/row.module#RowPageModule'
   }
 ];
 
@@ -25,4 +33,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

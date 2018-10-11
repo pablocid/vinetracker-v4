@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-button (click)="exit()" slot="end" fill="clear" size="default">
+      <ion-icon ios="ios-close" md="md-close"></ion-icon>
+    </ion-button>
+    <ion-title>
+      SELECCIÓN MANUAL
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+  <div style="text-align:center;" *ngIf="loading$ | async">
+    <ion-spinner name="dots"></ion-spinner>
+  </div>
+
+  <ion-list *ngIf="espaldera$ | async">
+    <ion-item>
+      <ion-avatar slot="start">
+        <ion-icon ios="ios-checkbox" md="md-checkbox"></ion-icon>
+      </ion-avatar>
+      <ion-label>
+        <h1>Espaldera seleccionada</h1>
+        <h2>Espaldera {{espaldera$ | async}}</h2>
+      </ion-label>
+      <ion-button color="tertiary" (click)="unsetE()" slot="end" fill="clear" size="large">
+        <ion-icon ios="ios-close-circle" md="md-close-circle"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="hilera$ | async">
+    <ion-item>
+      <ion-avatar slot="start">
+        <ion-icon ios="ios-checkbox" md="md-checkbox"></ion-icon>
+      </ion-avatar>
+      <ion-label>
+        <h1>Hilera seleccionada</h1>
+        <h2>Hilera {{hilera$ | async}}</h2>
+      </ion-label>
+      <ion-button color="tertiary" (click)="unsetH()" slot="end" fill="clear" size="large">
+        <ion-icon ios="ios-close-circle" md="md-close-circle"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="!(espaldera$ | async)">
+    <ion-item *ngFor="let row of (rows$ | async)">
+      <ion-avatar slot="start">
+        <ion-icon ios="ios-leaf" md="md-leaf"></ion-icon>
+      </ion-avatar>
+      <ion-label>
+        <h2>Espaldera {{row.espaldera}} </h2>
+      </ion-label>
+      <ion-button (click)="setE(row.espaldera)" slot="end" fill="clear" size="large">
+        <ion-icon ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+
+
+  <ion-list *ngIf="!(hilera$ | async) && (hileras$ | async)?.length">
+    <ion-item *ngFor="let hilera of hileras$ | async">
+      <ion-avatar slot="start">
+        <ion-icon ios="ios-leaf" md="md-leaf"></ion-icon>
+      </ion-avatar>
+      <ion-label>
+        <h2> Hilera {{hilera}}</h2>
+      </ion-label>
+      <ion-button (click)="setH(hilera)" slot="end" fill="clear" size="large">
+        <ion-icon ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-button *ngIf="(espaldera$ | async) &&(hilera$ | async)" (click)="exit(true)" expand="full" size="large" color="tertiary">
+    Comenzar evaluación
+    <ion-icon ios="ios-clipboard" md="md-clipboard"></ion-icon>
+  </ion-button>
+</ion-content>

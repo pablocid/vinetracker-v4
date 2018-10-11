@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-menu-button color="light"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      SECCIÓN DE PLANTAS
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Evaluación</ion-card-title>
+      <!-- <ion-card-subtitle>Ubica las plantas por número de espaldera e hilera</ion-card-subtitle> -->
+    </ion-card-header>
+    <ion-card-content>
+      <h2>{{assessmentName$ | async }}</h2>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Evaluación por hilera</ion-card-title>
+      <ion-card-subtitle>Ubica las plantas por número de espaldera e hilera</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p> Puedes seleccionar y cargar una hilera de 2 maneras: escaneando el código de una planta o seleccionar
+        manualmente el número de la espaldera y la hilera
+      </p>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6">
+              <qr-scan (code)="getCode($event)"></qr-scan>
+          </ion-col>
+          <ion-col size="6">
+            <ion-button size="large" color="tertiary" (click)="presentModal()">
+              Manual
+              <ion-icon name="hand"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Evaluación por planta</ion-card-title>
+      <ion-card-subtitle>Ubica planta por número de espaldera, hilera y posición</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+        <ion-button size="large" color="tertiary" expand="full">
+            Scann
+            <ion-icon name="qr-scanner"></ion-icon>
+          </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

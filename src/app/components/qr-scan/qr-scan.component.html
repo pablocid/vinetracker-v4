@@ -1,0 +1,7 @@
+<input hidden #inputPhoto type="file" capture="camera" [imageToDataUrl]="options" (imageSelected)="selected($event)"
+  accept="image/*;capture=camera">
+
+<ion-button (click)="take()" size="large" color="tertiary">
+  Scan
+  <ion-icon ios="ios-qr-scanner" md="md-qr-scanner"></ion-icon>
+</ion-button>

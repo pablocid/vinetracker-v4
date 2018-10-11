@@ -33,7 +33,7 @@
         max-width: 80%;
         margin: auto;
       }
-      button.login {
+      .login {
         margin-top: 25px;
         background-color: rgb(253, 76, 76);
         box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
@@ -42,5 +42,9 @@
         &.activated {
           background-color: rgb(220, 220, 220);
         }
+      }
+
+      .logout {
+        margin-top: 30px;
       }
 
