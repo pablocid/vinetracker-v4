@@ -1,10 +1,36 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>row</ion-title>
+
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-button (click)="presentActionSheet()">
+          <ion-icon ios="ios-more" md="md-more"></ion-icon>
+      </ion-button>
+      <!-- <ion-button>
+        <ion-icon slot="icon-only" ios="ios-information-circle" md="md-information-circle"></ion-icon>
+      </ion-button> -->
+    </ion-buttons>
+    E{{espaldera$ | async }} H{{hilera$ | async}}
+    <ion-title>
+      <ion-badge class="badgets" color="light" (click)="presentToast('plantas sin evaluar')">{{noEvaluadas$ | async}}</ion-badge>
+      <ion-badge class="badgets" color="primary" (click)="presentToast('plantas evaluadas')">{{evaluadas$ | async }}</ion-badge>
+      <ion-badge *ngIf="selected$ | async" class="badgets" color="success" (click)="presentToast('plantas seleccionadas')">{{ selected$ | async }}</ion-badge>
+      <!-- <ion-badge class="badgets" color="warning" (click)="presentToast('plantas en observación')">44</ion-badge> -->
+      <ion-badge class="badgets" color="danger" (click)="presentToast('plantas descartadas')">{{descartadas$ | async }}</ion-badge>
+      <ion-badge class="badgets" color="dark" (click)="presentToast('plantas restringidas para evaluación')">{{ restringidas$ | async }}</ion-badge>
+    </ion-title>
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content padding>
-  <h1>Login: {{isLoggin$ | async}}</h1>
+  <div style="text-align:center;" *ngIf="isLoggin$ | async">
+    <ion-spinner name="dots"></ion-spinner>
+  </div>
 
+  <plant-list *ngIf="!(isLoggin$ | async)" [rowsConfig]="rowConfig$ | async" (changeDetection)="change()" (assess)="toAssess($event)"></plant-list>
 </ion-content>

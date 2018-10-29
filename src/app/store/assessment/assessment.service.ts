@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
-import { ID } from '@datorama/akita';
 import { AssessmentStore } from './assessment.store';
-import { HttpClient } from '@angular/common/http';
 import { StitchService } from '../../services/mongodb-stitch/mongodb-stitch.service';
+import { EvaluationsQuery } from '../evaluations';
+import { RowQuery } from '../row';
+import { AttributeService } from '../attribute';
 
 @Injectable({ providedIn: 'root' })
 export class AssessmentService {
 
   constructor(
     private assessmentStore: AssessmentStore,
+    private evalQ: EvaluationsQuery,
+    private rowQ: RowQuery,
+    private attrS: AttributeService,
     private stitch: StitchService
   ) {
   }
@@ -29,6 +33,16 @@ export class AssessmentService {
         selection: {
           ...s.selection, e, h
         }
+      };
+    });
+  }
+
+  public async setEHPfromScanCode(code) {
+    const selection = await this.stitch.fromScanToSelection(code);
+    this.assessmentStore.setState(s => {
+      return {
+        ...s,
+        selection
       };
     });
   }
@@ -75,6 +89,24 @@ export class AssessmentService {
         }
       };
     });
+  }
+
+  public async getAssessment() {
+    this.assessmentStore.setLoading(true);
+    const schm = this.evalQ.getActiveId();
+    const idRef = this.rowQ.getActiveId();
+    console.log('Antes de llamar la funcion getassesment');
+    const assess = await this.stitch.client.callFunction('getAssessment', [schm, idRef]);
+
+    console.log('assess', assess);
+    this.assessmentStore.setState(s => {
+      return {
+        ...s,
+        updated: assess.updated
+      };
+    });
+    this.attrS.setAttrs(assess.attributes);
+    this.assessmentStore.setLoading(false);
   }
 
 }

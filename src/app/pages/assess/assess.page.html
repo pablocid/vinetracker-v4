@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBackConfirm()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="primary">
+      <ion-button (click)="updateAssess()">
+        <ion-icon *ngIf="!(assessLoading$ | async)" ios="ios-refresh" md="md-refresh"></ion-icon>
+        <ion-spinner *ngIf="(assessLoading$ | async)" name="dots"></ion-spinner>
+      </ion-button>
+    </ion-buttons>
+
+
+    <ion-title>{{position$ | async}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div style="text-align:center;" *ngIf="(assessLoading$ | async)">
+    <ion-spinner name="dots"></ion-spinner>
+  </div>
+  <ion-card *ngIf="!(assessLoading$ | async)">
+    <ion-card-header>
+      <ion-card-subtitle>Evaluación</ion-card-subtitle>
+      <ion-card-subtitle>{{name$ | async}}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content *ngIf="(attrNoAssessed$ | async)?.length">
+      Falta por evaluar:
+      <ul>
+        <li *ngFor="let attrAss of attrNoAssessed$ | async ">
+          {{attrAss.name}}
+        </li>
+      </ul>
+    </ion-card-content>
+  </ion-card>
+  <div *ngIf="!(assessLoading$ | async)">
+    <app-attribute *ngFor="let attr of activeAttr | async" [attribute]="attr" (goAssess)="assessAttr($event)" [canEdit]="canEdit"></app-attribute>
+  </div>
+
+</ion-content>

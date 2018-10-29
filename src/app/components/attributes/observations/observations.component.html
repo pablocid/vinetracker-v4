@@ -1,0 +1,35 @@
+<ion-card>
+  <ion-card-header style="text-align:center;">
+    <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
+    <ion-card-title>{{description | async}}</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <span #entry></span>
+  </ion-card-content>
+</ion-card>
+
+<ng-template #listViewTmpl>
+  <div style="text-align:center;">
+    <ion-list>
+      <ion-item *ngFor="let option of listViewValue | async ">
+        <ion-label>{{option}}</ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <ion-button *ngIf="canEdit" (click)="assessAttr()" expand="full" size="default" color="tertiary">
+    <span *ngIf="(valueIsSet$ | async)">Modificar <ion-icon ios="ios-clipboard" md="md-clipboard"></ion-icon></span>
+    <span *ngIf="!(valueIsSet$ | async)">Evaluar <ion-icon ios="ios-clipboard" md="md-clipboard"></ion-icon></span>
+  </ion-button>
+</ng-template>
+
+<ng-template #editViewTmpl>
+  <ion-list>
+    <ion-item *ngFor="let option of options$ | async ; let i = index ">
+      <ion-label>{{option.string}}</ion-label>
+      <ion-toggle [checked]="option.selected" (ionChange)="optionChange($event, option, i)" slot="end" color="tertiary"></ion-toggle>
+    </ion-item>
+  </ion-list>
+
+</ng-template>

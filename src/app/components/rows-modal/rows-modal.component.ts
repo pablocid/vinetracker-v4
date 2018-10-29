@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { AssessmentQuery, AssessmentService } from '../../store/assessment';
 import { Subscription } from 'rxjs';
 import { ModalController } from '@ionic/angular';
@@ -6,9 +6,11 @@ import { ModalController } from '@ionic/angular';
 @Component({
   selector: 'app-rows-modal',
   templateUrl: './rows-modal.component.html',
-  styleUrls: ['./rows-modal.component.scss']
+  styleUrls: ['./rows-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RowsModalComponent implements OnInit, OnDestroy {
+  url: any;
 
   constructor(
     private assessQ: AssessmentQuery,
@@ -26,6 +28,7 @@ export class RowsModalComponent implements OnInit, OnDestroy {
   public hileras$ = this.assessQ.getCurrentHileras();
 
   ngOnInit() {
+    console.log('url ', this.url);
     this.unSubRows = this.rowsLength$.subscribe(list => {
       console.log('list', list);
       if (!list) {

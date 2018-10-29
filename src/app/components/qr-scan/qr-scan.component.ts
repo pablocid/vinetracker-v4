@@ -40,7 +40,7 @@ export class QrScanComponent implements OnInit {
 
     public async selected(img: ImageResult) {
         const r = await this.qrScanner.scann(img.resized.dataURL);
-        console.log('result', r);
+        // console.log('result', r);
         if (r) {
             this.code.emit(r.data);
         } else {

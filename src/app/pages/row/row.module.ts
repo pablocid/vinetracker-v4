@@ -4,8 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
-
 import { RowPage } from './row.page';
+import { ReversePipe } from '../../pipes/reverse.pipe';
+import { PlantListComponent } from '../../components/plant-list/plant-list.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [RowPage]
+  declarations: [RowPage, ReversePipe, PlantListComponent]
 })
 export class RowPageModule {}

@@ -8,10 +8,11 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { ImageShowComponent } from './components/image-show/image-show.component';
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent, ImageShowComponent],
+  entryComponents: [ImageShowComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
@@ -24,4 +25,4 @@ import { AppRoutingModule } from './app-routing.module';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

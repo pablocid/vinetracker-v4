@@ -26,7 +26,9 @@ const routes: Routes = [
   {
     path: 'row',
     loadChildren: './pages/row/row.module#RowPageModule'
-  }
+  },
+  { path: 'assess', loadChildren: './pages/assess/assess.module#AssessPageModule' },
+  { path: 'attribute', loadChildren: './pages/attribute/attribute.module#AttributePageModule' }
 ];
 
 @NgModule({

@@ -1,0 +1,60 @@
+<ion-card>
+  <ion-card-header style="text-align:center;">
+    <ion-card-title>{{description | async }}</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <span #entry></span>
+  </ion-card-content>
+</ion-card>
+
+<ng-template #listViewTmpl>
+  <div style="text-align:center;">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="4" *ngFor="let img of listViewValue | async" style="text-align:center;">
+          <img *ngIf="img" class="thumbnail" (click)="presentModal(img.url)" [src]="img.thumbnail" alt="">
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <ion-button *ngIf="(currentNumOfPics | async) !== 0canEdit" (click)="assessAttr()" expand="full" size="default" color="tertiary">
+    Modificar <ion-icon ios="ios-clipboard" md="md-clipboard"></ion-icon>
+  </ion-button>
+
+  <ion-button *ngIf="(currentNumOfPics | async) === 0 && canEdit" (click)="assessAttr()" expand="full" size="default" color="tertiary">
+    Evaluar <ion-icon ios="ios-clipboard" md="md-clipboard"></ion-icon>
+  </ion-button>
+</ng-template>
+
+<ng-template #editViewTmpl>
+
+  <!-- picture gallery -->
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4" *ngFor="let img of listViewValue | async; let i = index; " style="text-align:center;">
+        <img *ngIf="img" class="thumbnail" (click)="presentActionSheet(img.url, i)" [src]="img.thumbnail" alt="">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- number of picture allow -->
+  <p style="text-align: center"> fotos: {{currentNumOfPics | async}} de {{numOfPics | async}} </p>
+
+  <div *ngIf=" (currentNumOfPics | async) < (numOfPics | async) && !uploading">
+    <image-picker *ngIf="!theFile" (selection)="onCapture($event)" label="Tomar una foto "> </image-picker>
+    <ion-button color="tertiary" expand="full" *ngIf="theFile" (click)="uploadAndSave()">
+      Guardar la foto <span style="margin-right: 10px;"></span>
+      <ion-icon ios="ios-cloud-upload" md="md-cloud-upload"></ion-icon>
+    </ion-button>
+    <ion-button color="tertiary" expand="full" *ngIf="theFile" (click)="cancelPhoto()">
+      Eliminar la foto <span style="margin-right: 10px;"></span>
+      <ion-icon ios="ios-trash" md="md-trash"></ion-icon>
+    </ion-button>
+  </div>
+<!-- loading dots -->
+  <ion-button color="tertiary" expand="full" *ngIf="uploading">
+      <ion-spinner name="dots"></ion-spinner>
+    </ion-button>
+</ng-template>

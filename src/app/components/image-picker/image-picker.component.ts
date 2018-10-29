@@ -8,7 +8,7 @@ import * as EXIF from 'exif-js';
 })
 
 export class ImagePickerComponent implements OnInit {
-    public label = 'Tomar foto';
+    public label;
     constructor() { }
 
     public get options(): Options {

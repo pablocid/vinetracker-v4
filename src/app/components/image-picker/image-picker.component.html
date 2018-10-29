@@ -1,4 +1,6 @@
 <input hidden #inputPhoto type="file" capture="camera" [imageToDataUrl]="options" 
   (imageSelected)="selected($event)" accept="image/png,image/jpeg">
 
-  <ion-button (click)="take()"><ion-icon  ios="ios-camera" md="md-camera"></ion-icon></ion-button>
+  <ion-button expand="block" (click)="take()" color="tertiary">
+    {{label}} <ion-icon  ios="ios-camera" md="md-camera"></ion-icon>
+  </ion-button>

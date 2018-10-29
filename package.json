@@ -31,6 +31,7 @@
     "mongodb-stitch-browser-sdk": "^4.0.13",
     "ngx-image2dataurl": "^2.1.1",
     "rxjs": "6.2.2",
+    "uuid": "^3.3.2",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

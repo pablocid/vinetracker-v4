@@ -139,7 +139,7 @@ export class StitchService {
         const result = await this.convertImageToBSONBinaryObject(file, rs64);
 
         // uploading the image
-        const response = await this.client.callFunction('anaphotos', [key, file.type, result]);
+        const response = await this.client.callFunction('pmgvphotos', [key, file.type, result]);
         return response;
     }
 
@@ -154,6 +154,10 @@ export class StitchService {
 
     public updateAttr(idRef: string, schm: string, attrId: string, datatype: string, value: any) {
         return this.client.callFunction('updateAttr', [idRef, schm, attrId, datatype, value]);
+    }
+
+    public fromScanToSelection(code): Promise<{ e: number, h: number, p: number }> {
+        return this.client.callFunction('EHPfromScan', [code]);
     }
 
 }

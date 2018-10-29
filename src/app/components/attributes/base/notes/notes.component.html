@@ -1,0 +1,26 @@
+<ion-card>
+  <ion-card-header style="text-align:center;">
+    <ion-card-title>{{description | async }}</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content><span #entry></span></ion-card-content>
+</ion-card>
+
+<ng-template #listViewTmpl>
+  <div style="text-align:center;">
+    <p>{{listViewValue | async}}</p>
+  </div>
+
+  <ion-button *ngIf="canEdit" (click)="assessAttr()" expand="full" size="default" color="tertiary">
+    <span *ngIf="(valueIsSet$ | async)">Modificar <ion-icon ios="ios-clipboard" md="md-clipboard"></ion-icon></span>
+    <span *ngIf="!(valueIsSet$ | async)">Evaluar <ion-icon ios="ios-clipboard" md="md-clipboard"></ion-icon></span>
+  </ion-button>
+
+</ng-template>
+
+<ng-template #editViewTmpl>
+
+  <textarea style="background-color:rgba(0,0,0,0.1);color:black; width:100%; border: none;  height:300px;" [(ngModel)]='textareaValue'
+    (blur)="onTAChange($event)"></textarea>
+
+</ng-template>

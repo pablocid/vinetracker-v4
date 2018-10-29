@@ -6,6 +6,10 @@ export interface Row {
   selected: string;
   position: number;
   discard: boolean;
+  assessable: boolean;
+  created: boolean;
+  selection: boolean;
+  brix: number;
 }
 
 export function createRow(params: Partial<Row>) {

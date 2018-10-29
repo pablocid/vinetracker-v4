@@ -1,0 +1,76 @@
+<span #entry></span>
+
+<ng-template #fen1>
+  <h1>Fenotipado 1</h1>
+  <ion-list>
+    <ion-item *ngFor="let row of rowsConfig.rows" [color]="setColor(row)?.item">
+      <ion-avatar slot="start">
+        <ion-icon *ngIf="row.selected !== 'selected'" ios="ios-leaf" md="md-leaf"></ion-icon>
+        <ion-icon  *ngIf="row.selected === 'selected'" color="success" ios="ios-star" md="md-star"></ion-icon>
+      </ion-avatar>
+      <ion-label [ngStyle]="setColor(row)?.style">
+        <h2>Planta {{row.location}}</h2>
+        <h4 *ngIf="row.discard">DESCARTADA</h4>
+        <!-- <h4 *ngIf="row.selected === 'selected'">SELECCIONADA</h4> -->
+        <h4 *ngIf="!row.assessable && !row.discard">RESTRINGIDA</h4>
+        <h4 *ngIf="row.assessable && !row.discard && !row.created ">SIN EVALUAR</h4>
+        <h4 *ngIf="row.assessable && !row.discard && row.created ">EVALUADA</h4>
+      </ion-label>
+      <ion-button (click)="assessment(row.id)" *ngIf="row.assessable" [color]="setColor(row)?.btn" slot="end" fill="clear"
+        size="default">
+        <ion-icon ios="ios-create" md="md-create"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+</ng-template>
+
+<ng-template #bix>
+    <h1>Grados Brix</h1>
+    <ion-list>
+        <ion-item *ngFor="let row of rowsConfig.rows" [color]="setColor(row)?.item">
+          <ion-avatar slot="start">
+              <ion-icon *ngIf="row.selected !== 'selected'" ios="ios-leaf" md="md-leaf"></ion-icon>
+              <ion-icon  *ngIf="row.selected === 'selected'" color="success" ios="ios-star" md="md-star"></ion-icon>
+          </ion-avatar>
+          <ion-label [ngStyle]="setColor(row)?.style">
+            <h2>Planta {{row.location}}</h2>
+            <h4 *ngIf="row.discard">DESCARTADA</h4>
+            <!-- <h4 *ngIf="row.selection">SELECCIONADA</h4> -->
+            <h4 *ngIf="!row.assessable && !row.discard">RESTRINGIDA</h4>
+            <h4 *ngIf="row.assessable && !row.discard && !row.created ">SIN EVALUAR</h4>
+            <h4 *ngIf="row.assessable && !row.discard && row.created ">EVALUADA</h4>
+            <ion-badge color="light" *ngIf="row.brix">{{row.brix}} Brix</ion-badge>
+          </ion-label>
+          <ion-button (click)="more(row)" *ngIf="row.assessable" [color]="setColor(row)?.btn" slot="end" fill="clear"
+            size="default">
+            <ion-icon ios="ios-more" md="md-more"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+
+</ng-template>
+
+<ng-template #fen0>
+    <h1>Fenotipado 0</h1>
+  <ion-list>
+    <ion-item *ngFor="let row of rowsConfig.rows" [color]="setColor(row)?.item">
+      <ion-avatar slot="start">
+          <ion-icon *ngIf="row.selected !== 'selected'" ios="ios-leaf" md="md-leaf"></ion-icon>
+          <ion-icon  *ngIf="row.selected === 'selected'" color="success" ios="ios-star" md="md-star"></ion-icon>
+      </ion-avatar>
+      <ion-label [ngStyle]="setColor(row)?.style">
+        <h2>Planta {{row.location}}</h2>
+        <h4 *ngIf="row.discard">DESCARTADA</h4>
+        <h4 *ngIf="!row.assessable && !row.discard">RESTRINGIDA</h4>
+        <h4 *ngIf="row.assessable && !row.discard && !row.created ">SIN EVALUAR</h4>
+        <h4 *ngIf="row.assessable && !row.discard && row.created ">EVALUADA</h4>
+      </ion-label>
+      <ion-button (click)="more(row)" *ngIf="row.assessable" [color]="setColor(row)?.btn" slot="end" fill="clear"
+        size="default">
+        <ion-icon ios="ios-more" md="md-more"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+  
+  </ng-template>

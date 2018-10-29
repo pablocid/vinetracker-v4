@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBackConfirm()">
+        <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="primary" >
+      <ion-button *ngIf="showSave" (click)="saveConfirm()">
+        <ion-icon ios="ios-cloud-done" md="md-cloud-done"></ion-icon>
+      </ion-button>
+      <ion-button (click)="more()">
+          <ion-icon ios="ios-more" md="md-more"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Evaluación</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-attribute (goBack)="goBack()" [attribute]="activeAttr$ | async" [edit]="true"></app-attribute>
+</ion-content>
