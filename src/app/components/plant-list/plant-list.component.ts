@@ -7,7 +7,8 @@ import {
   EventEmitter,
   ViewChild,
   ViewContainerRef,
-  TemplateRef
+  TemplateRef,
+  ChangeDetectorRef
 } from '@angular/core';
 import { ActionSheetController, AlertController } from '@ionic/angular';
 import { RowService } from '../../store/row';
@@ -23,7 +24,8 @@ export class PlantListComponent implements OnInit {
   constructor(
     private actionSheetController: ActionSheetController,
     private alertController: AlertController,
-    private rowS: RowService
+    private rowS: RowService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   @Input() rowsConfig;
@@ -40,6 +42,10 @@ export class PlantListComponent implements OnInit {
     this.setTemplate(this.rowsConfig.type);
   }
 
+  trackById(index, item) {
+    return item.id;
+  }
+
   private setTemplate(type: number) {
     if (type === 3) {
       try { this.entry.createEmbeddedView(this.fen1); } catch (e) { console.log('Error: No existe template para fenotipado 1'); }
@@ -50,7 +56,7 @@ export class PlantListComponent implements OnInit {
     if (type === 1) {
       try { this.entry.createEmbeddedView(this.fen0); } catch (e) { console.log('Error: No existe template para fenotipado 1'); }
     }
-
+    // this.cdr.detectChanges();
   }
 
   public setColor(row) {

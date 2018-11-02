@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
 import { RowQuery, RowService } from '../../store/row';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
@@ -14,7 +14,7 @@ import { ToastController, ActionSheetController } from '@ionic/angular';
   styleUrls: ['./row.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RowPage implements OnInit {
+export class RowPage implements OnInit, AfterViewInit {
 
   constructor(
     private rowQ: RowQuery,
@@ -56,9 +56,14 @@ export class RowPage implements OnInit {
   );
 
   ngOnInit() {
-    this.rowConfig$.subscribe(x => {
-      console.log('row config', x);
-    });
+    // this.rowConfig$.subscribe(x => {
+    //   console.log('row config', x);
+    // });
+  }
+  ngAfterViewInit() {
+    // We only want to detach the change detectors after change detection has been
+    // performed for the first time
+    // this.cdr.detach();
   }
   async presentToast(msg) {
     const toast = await this.toastController.create({
@@ -89,9 +94,9 @@ export class RowPage implements OnInit {
   public toAssess(id) {
     // first set row plant & get attributes assessment
     this.rowS.setActive(id);
-     this.assessS.getAssessment();
+    this.assessS.getAssessment();
     // then go to route assess (if not there is an error en component factory)
-     this.router.navigate(['assess']);
+    this.router.navigate(['assess']);
   }
 
   change() {
@@ -113,8 +118,8 @@ export class RowPage implements OnInit {
         text: 'Actualizar',
         role: 'destructive',
         icon: 'sync',
-        handler:  () => {
-          this.rowS.getRow().then( () => {
+        handler: () => {
+          this.rowS.getRow().then(() => {
             this.cdr.detectChanges();
           });
         }

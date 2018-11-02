@@ -4,6 +4,7 @@ import { EvaluationsQuery } from '../evaluations';
 import { StitchService } from '../../services/mongodb-stitch/mongodb-stitch.service';
 import { AssessmentQuery } from '../assessment';
 import { RowQuery } from './row.query';
+import { ID } from '@datorama/akita';
 
 @Injectable({ providedIn: 'root' })
 export class RowService {
@@ -28,13 +29,30 @@ export class RowService {
     this.rowStore.setLoading(false);
   }
 
-  public async updateRowItem() {
+  public async setSingleItemRow() {
+    this.rowStore.setLoading(true);
     const assessSchm = this.evalQ.getActive().id;
-    const rowId = this.rowQ.getActiveId();
+    const rowId = this.assessQ.getSnapshot().selection.id;
+
     try {
       console.log('IDS row assesSchm', rowId, assessSchm);
       const results = await this.stitch.client.callFunction('getPlant', [rowId, assessSchm]);
-      console.log('this.stitch.client.callFunction(getPlantForF1', results);
+      console.log('this.stitch.client.callFunction(getPlant', results);
+      this.rowStore.set([results]);
+      this.rowStore.setActive(rowId);
+    } catch (error) {
+      console.log('error en updateRowItem', error);
+    }
+  }
+
+  public async updateRowItem(assessSchm?: ID, rowId?: ID) {
+    assessSchm = assessSchm ? assessSchm : this.evalQ.getActive().id;
+    rowId = rowId ? rowId : this.rowQ.getActiveId();
+
+    try {
+      console.log('IDS row assesSchm', rowId, assessSchm);
+      const results = await this.stitch.client.callFunction('getPlant', [rowId, assessSchm]);
+      console.log('this.stitch.client.callFunction(getPlant', results);
       this.rowStore.update(rowId, results);
     } catch (error) {
       console.log('error en updateRowItem', error);

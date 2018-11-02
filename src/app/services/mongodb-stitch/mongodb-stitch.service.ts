@@ -156,7 +156,7 @@ export class StitchService {
         return this.client.callFunction('updateAttr', [idRef, schm, attrId, datatype, value]);
     }
 
-    public fromScanToSelection(code): Promise<{ e: number, h: number, p: number }> {
+    public fromScanToSelection(code): Promise<{ e: number, h: number, p: number, id: string }> {
         return this.client.callFunction('EHPfromScan', [code]);
     }
 

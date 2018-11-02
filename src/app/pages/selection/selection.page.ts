@@ -55,4 +55,13 @@ export class SelectionPage implements OnInit {
     }
   }
 
+  async singleAssessment(code: string) {
+    console.log('CODE', code);
+    if (code) {
+      await this.assessS.setEHPfromScanCode(code);
+      await this.rowS.setSingleItemRow();
+      this.router.navigate(['assess']);
+    }
+  }
+
 }

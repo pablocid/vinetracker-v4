@@ -36,11 +36,11 @@ export class WelcomePage implements OnInit {
     async login() {
         const alert = await this.alertController.create({
             header: 'Registrate',
-            subHeader: 'control de acceso',
-            message: 'Entra con tu email y contraseña',
+            // subHeader: 'control de acceso',
+            // message: 'Entra con tu email y contraseña',
             inputs: [
-                { name: 'email', placeholder: 'myemail@gmail.com', type: 'email', label: 'email', value: 'admin@agroinformatica.cl' },
-                { name: 'password', type: 'password', placeholder: '*** password ***', value: 'cid123'},
+                { name: 'email', placeholder: 'myemail@gmail.com', type: 'email', label: 'email'},
+                { name: 'password', type: 'password', placeholder: '*** password ***'},
             ],
             buttons: [
                 { text: 'Cancel', handler: data => { } },

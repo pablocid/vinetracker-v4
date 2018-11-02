@@ -18,7 +18,7 @@
       </ion-list>
     </div>
   
-    <ion-button *ngIf="canEdit" (click)="assessAttr()" expand="full" size="default" color="tertiary">
+    <ion-button *ngIf="canEdit" (click)="assessAttr()" style="margin-top: 30px;" expand="block" size="large" color="tertiary">
       <span *ngIf="(valueIsSet$ | async)">Modificar <ion-icon ios="ios-clipboard" md="md-clipboard"></ion-icon></span>
       <span *ngIf="!(valueIsSet$ | async)">Evaluar <ion-icon ios="ios-clipboard" md="md-clipboard"></ion-icon></span>
     </ion-button>
