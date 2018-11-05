@@ -77,4 +77,15 @@ export class RowService {
     return;
   }
 
+  async updateEntity(plantId, attrId, value, opts: any) {
+    const assessId = this.evalQ.getActiveId();
+    // stitch function updateAttr
+
+    console.log('updateEntity params', [plantId, assessId, value, opts]);
+    const result = await this.stitch.client.callFunction('updateEntity', [plantId, attrId, value, opts]);
+    console.log('updateAttr', result);
+    const item = await this.stitch.client.callFunction('getPlant', [plantId, assessId]);
+    this.rowStore.update(plantId, item);
+  }
+
 }

@@ -24,7 +24,7 @@
   </div>
   <ion-card *ngIf="!(assessLoading$ | async)">
     <ion-card-header>
-      <ion-card-subtitle>Evaluación</ion-card-subtitle>
+      <ion-card-subtitle>Evaluación  </ion-card-subtitle>
       <ion-card-subtitle>{{name$ | async}}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content *ngIf="(attrNoAssessed$ | async)?.length">
@@ -37,7 +37,6 @@
     </ion-card-content>
   </ion-card>
   <div *ngIf="!(assessLoading$ | async)">
-    <app-attribute *ngFor="let attr of activeAttr | async" [attribute]="attr" (goAssess)="assessAttr($event)" [canEdit]="canEdit"></app-attribute>
+    <app-attribute *ngFor="let attr of activeAttr | async" [attribute]="attr" (goAssess)="assessAttr($event)" [canEdit]="canEdit$ | async"></app-attribute>
   </div>
-
 </ion-content>

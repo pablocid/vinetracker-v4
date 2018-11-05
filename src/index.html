@@ -1,10 +1,11 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>VineTracker v4</title>
 
-  <base href="/"/>
+  <base href="/" />
 
   <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="format-detection" content="telephone=no">
@@ -19,33 +20,35 @@
 
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#1976d2">
-    <!-- un-comment this code to enable service worker -->
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('ngsw-worker.js')
-          .then((reg) => {
-            reg.onupdatefound = () => {
-              const installingWorker = reg.installing;
-              installingWorker.onstatechange = () => {
-                switch (installingWorker.state) {
-                  case 'installed':
-                    if (navigator.serviceWorker.controller) {
-                      alert("Nueva versión disponible. Cierra y abre nuevamente la aplicación.")
-                       return true;
-                    } else {return false;}
-                    break;
-                  default:
+  <!-- un-comment this code to enable service worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('ngsw-worker.js')
+        .then((reg) => {
+          reg.onupdatefound = () => {
+            const installingWorker = reg.installing;
+            installingWorker.onstatechange = () => {
+              switch (installingWorker.state) {
+                case 'installed':
+                  if (navigator.serviceWorker.controller) {
+                    alert("Nueva versión disponible. Cierra y abre nuevamente la aplicación.")
+                    return true;
+                  } else { return false; }
+                  break;
+                default:
                   return true;
-                }
-              };
+              }
             };
-          })
-          .catch(err => console.error('Error service-worker', err));
-      }
-    </script>
+          };
+        })
+        .catch(err => console.error('Error service-worker', err));
+    }
+  </script>
 </head>
+
 <body>
   <app-root></app-root>
   <noscript>Please enable JavaScript to continue using this application.</noscript>
 </body>
+
 </html>

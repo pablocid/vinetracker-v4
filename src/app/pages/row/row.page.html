@@ -31,6 +31,5 @@
   <div style="text-align:center;" *ngIf="isLoggin$ | async">
     <ion-spinner name="dots"></ion-spinner>
   </div>
-
-  <plant-list *ngIf="!(isLoggin$ | async)" [rowsConfig]="rowConfig$ | async" (changeDetection)="change()" (assess)="toAssess($event)"></plant-list>
+  <plant-list *ngIf="!(isLoggin$ | async)" [rowsConfig]="rowConfig$ | async" (changeDetection)="change()" (assess)="toAssess($event)" [editable]="editable$ | async"></plant-list>
 </ion-content>

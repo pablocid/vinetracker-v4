@@ -29,6 +29,7 @@ export class PlantListComponent implements OnInit {
   ) { }
 
   @Input() rowsConfig;
+  @Input() editable: boolean;
   @Output() assess = new EventEmitter();
   @Output() changeDetection = new EventEmitter();
 
@@ -92,6 +93,14 @@ export class PlantListComponent implements OnInit {
           this.zeroClusterConfirm(row.id);
         }
       });
+
+      btns.push({
+        text: 'Descartar planta',
+        icon: 'remove-circle',
+        handler: () => {
+          this.discardPlantConfirm(row.id);
+        }
+      });
     }
 
     if (this.rowsConfig.type === 2) {
@@ -139,6 +148,32 @@ export class PlantListComponent implements OnInit {
           handler: async () => {
             console.log('Confirm Okay');
             await this.rowS.updateAttr(id, '5808d1e9d48d17001006e43c', 0, {});
+            this.changeDetection.emit();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async discardPlantConfirm(id) {
+    const alert = await this.alertController.create({
+      header: 'Deseas descartar esta planta ?',
+      // message: 'Message <strong>text</strong>!!!',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Si, descartar',
+          handler: async () => {
+            console.log('Confirm Okay');
+            await this.rowS.updateEntity(id, '5bd14b4bd71ef20014e4b327', 'no_selected', {});
             this.changeDetection.emit();
           }
         }

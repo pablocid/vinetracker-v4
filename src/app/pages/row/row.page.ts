@@ -44,6 +44,7 @@ export class RowPage implements OnInit, AfterViewInit {
   public descartadas$ = this.rows$.pipe(map(r => r.filter(x => x.discard === true).length));
   public restringidas$ = this.rows$.pipe(map(r => r.filter(x => x.assessable === false).length));
   public selected$ = this.rows$.pipe(map(r => r.filter(x => x.selected === 'selected').length));
+  public editable$ = this.evalQ.selectActive().pipe(map(e => e.editable));
 
   public rowConfig$ = this.type$.pipe(
     map(pos => this.rows$.pipe(map(r => {

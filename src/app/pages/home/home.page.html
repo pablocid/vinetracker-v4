@@ -21,7 +21,9 @@
         <!-- <h3>I'm a big deal</h3> -->
       </ion-label>
       <ion-button (click)="activate(assess.id)" slot="end" fill="clear" size="large">
-        <ion-icon name="exit"></ion-icon>
+    
+        <ion-icon *ngIf="assess.editable" ios="ios-create" md="md-create"></ion-icon>
+        <ion-icon *ngIf="!assess.editable" ios="ios-eye" md="md-eye"></ion-icon>
       </ion-button>
     </ion-item>
   </ion-list>

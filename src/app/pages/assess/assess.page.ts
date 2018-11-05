@@ -27,7 +27,7 @@ export class AssessPage implements OnInit {
     private router: Router,
     private alertController: AlertController
   ) { }
-
+  public canEdit$ = this.evalQ.selectActive().pipe(map(e => e.editable));
   public assessLoading$ = this.assessQ.selectLoading();
   private active = this.evalQ.selectActive();
   public name$ = this.active.pipe(map(x => x.label));
@@ -39,6 +39,7 @@ export class AssessPage implements OnInit {
       f.id !== '57c42f77c8307cd5b82f4486' &&
       f.id !== '5808de89832db50010d3192c' &&
       f.id !== '57c8a0cca774d31000b71cd4' &&
+      f.id !== '5851acbc0cb9af001119793e' &&
       (f.value === null || f.value === undefined))))
     .pipe(map(x => x.map(att => {
       return {
@@ -51,7 +52,6 @@ export class AssessPage implements OnInit {
     '580c121390cc2700100db1d3', '57c8a0cca774d31000b71cd4',
     '5851a6970cb9af0011197939', '580c0caf90cc2700100db1d2',
     '580c082b12e1240010cd9d64', '5851a7fc0cb9af001119793a'];
-  public canEdit = true;
 
   ngOnInit() {
 
